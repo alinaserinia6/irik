@@ -38,6 +38,7 @@ pip install -r requirements.txt
 # Build ROS2 package
 colcon build
 source install/setup.bash
+```
 
 ## Team Members
 - **Member 1**: Zahra Ayed
