@@ -1,0 +1,23 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "colcon",
+			"args": [
+				"build",
+				"--packages-select",
+				"drone_control_pkg"
+			],
+			"problemMatcher": [
+				"$colcon-helper-gcc",
+				"$colcon-helper-msbuild",
+				"$colcon-helper-msbuild-info"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"label": "colcon: build 'drone_control_pkg'"
+		}
+	]
+}

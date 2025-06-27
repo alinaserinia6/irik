@@ -1,11 +1,20 @@
 # Drone Control Algorithms
 
+![TEAM ICON](images/irik.png)
+
 ROS2 Python package for autonomous drone control algorithms, designed to work with PX4 and Gazebo simulation.
 
 ## Team Members
-- **Member 1**: Flight Control & Safety Systems
-- **Member 2**: Navigation & Path Planning  
-- **Member 3**: Communication & Integration
+- **Member 1**: Zahra Ayed
+- **Member 2**: Reyhaneh Fathollahi
+- **Member 3**: Mohammad javad Shadpoor
+- **Member 4**: Mohammad hosseyn Lotfi
+- **Member 5**: Mahdi Gholami
+- **Member 6**: Arshia Yarmohammadi
+- **Member 7**: Ali Naserinia
+- **Member 8**: Mohammad bagher Mohsenian
+- **Member 9**: Leyla Shekari
+![Team Members Picture](images/team.jpg)
 
 ## Project Timeline
 20-day development sprint for complete autonomous drone control system.
