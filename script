@@ -1,0 +1,124 @@
+#!/bin/bash
+
+Help()
+{
+	echo
+	echo "##########################################################"
+	echo "#                                                        #"
+	echo "#             Welcome to IRIK drone project              #"
+	echo "#                                                        #"
+	echo "##########################################################"
+	echo
+	echo "bash script for automating launch irik project."
+	echo
+	echo "Syntax: ./script [-h|b|d|l]"
+	echo "options:"
+	echo "-h     : Print this Help."
+	echo "-b     : Build project using colcon."
+	echo "-d     : Install dependencies."
+	echo "-l     : Launch project using ros2."
+	echo
+}
+
+
+##############################
+#    install dependencies    #
+##############################
+
+Install_Dependencies()
+{
+	echo "Installing dependencies"
+
+	#install rviz2 for simulation
+	sudo apt install ros-humble-rviz2
+
+	#install ros2
+	sudo apt install ros-humble-desktop
+
+	#check PX4-Autopilot
+	if [ ! -d ~/PX4-Autopilot ]; then
+		cd ~/
+		git clone https://github.com/PX4/PX4-Autopilot.git --recursive -b release/1.15
+		echo "[INFO]: run ~/PX4-Autopilot/Tools/setup/ubuntu.sh after this script"
+		cd -
+	fi
+
+	#check Mavlink exists
+	if ! command -v MicroXRCEAgent >/dev/null 2>&1; then
+		InstallMicroXRCEAgent
+	fi
+
+	if ! grep -q "/opt/ros/humble/setup.bash" ~/.bashrc; then
+		echo source /opt/ros/humble/setup.bash >> ~/.bashrc
+	fi
+
+	if ! grep -q "EDITOR=" ~/.bashrc; then
+		echo source /opt/ros/humble/setup.bash >> ~/.bashrc
+	fi
+
+	#install python virtual environment 
+	sudo apt install python3-venv
+
+	#create python virtual environment
+	python3 -m venv venv
+	source venv/bin/activate
+
+	#install python requirements 
+	pip install -r requirements.txt
+}
+
+InstallMicroXRCEAgent()
+{
+	cd ~/
+	git clone -b v2.4.2 https://github.com/eProsima/Micro-XRCE-DDS-Agent.git
+	cd Micro-XRCE-DDS-Agent
+	mkdir build
+	cd build
+	cmake ..
+	make
+	sudo make install
+	sudo ldconfig /usr/local/lib/
+	cd ~/irik
+}
+
+##############################
+#           build            #
+##############################
+
+Build()
+{
+	cd ~/irik
+	colcon build
+}
+
+
+##############################
+#           launch           #
+##############################
+
+Launch()
+{
+	echo "launch"
+	source /install/local-setup.sh
+	# ros2 run 
+}
+
+while getopts ":hbdl" option; do
+	case $option in
+		h)
+			Help
+			exit;;
+		b)
+			Build
+			exit;;
+		d)
+			Install_Dependencies
+			exit;;
+		l)
+			Launch
+			exit;;
+		\?)
+			echo "Error: Invalid option"
+			exit;;
+	esac
+done

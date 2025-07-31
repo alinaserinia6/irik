@@ -22,22 +22,27 @@ ROS2 Python package for autonomous drone control algorithms, designed to work wi
 ## Quick Start
 
 ### Prerequisites
-- ROS2 Humble/Iron
-- Python 3.8+
+- Ubuntu 22.04
+- ROS2 Humble
+- Python 3.10
 - PX4-Autopilot (for simulation interface)
+- Micro-XRCE-DDS-Agent (for link ros with px4)
+- rviz2 (for simulate movement of drone)
 
 ### Installation
 ```bash
 # Clone repository
-git clone https://github.com/your-username/drone-control-algorithms.git
-cd drone-control-algorithms
+git clone https://github.com/alinaserinia6/irik.git
+cd irik
 
 # Install dependencies
-pip install -r requirements.txt
+./script -d
 
 # Build ROS2 package
-colcon build
-source install/setup.bash
+./script -b
+
+# launch drone
+./script -l
 ```
 
 ## Team Members
